@@ -3,7 +3,8 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import connectDB from './db/connectDB.js';
 import userRoutes from './routes/userRoutes.js';
-import multer from 'multer';  // Pastikan multer diimpor di sini
+import multer from 'multer';
+import path from 'path';
 
 // Konfigurasi .env
 dotenv.config();
@@ -26,6 +27,9 @@ app.use(express.json());
 
 // Middleware parsing URL-encoded data
 app.use(express.urlencoded({ extended: true }));
+
+// Menetapkan folder 'uploads' sebagai static
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 
 // ROUTES
 app.use(process.env.API_ROUTES, userRoutes);
