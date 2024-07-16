@@ -24,6 +24,15 @@ const blogSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true
+  },
+  gotongRoyong: {
+    type: Boolean,
+  },
+  masyarakat: {
+    type: Boolean,
+  },
+  wisata: {
+    type: Boolean,
   }
 }, {
   timestamps: true,
