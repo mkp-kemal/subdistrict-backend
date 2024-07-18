@@ -1,4 +1,5 @@
 import BlogData from "../models/blog.model.js";
+import fs from 'fs';
 
 const createBlog = async (req, res) => {
     const { publisher, title, description, date, gotongRoyong, masyarakat, wisata } = req.body;
@@ -41,42 +42,72 @@ const getBlogs = async (req, res) => {
 
 const updateBlog = async (req, res) => {
     const { id } = req.params;
-    const { publisher, title, description, date } = req.body;
+    const { publisher, title, description, date, story } = req.body;
     const image = req.file;
 
     // Validasi input
-    if (!publisher || !title || !description || !date) {
+    if (!publisher || !title || !description || !date || !story) {
         return res.status(400).json({ message: 'All fields except image are required' });
     }
 
     try {
-        // Temukan blog berdasarkan ID
         const blog = await BlogData.findById(id);
         if (!blog) {
             return res.status(404).json({ message: 'Blog not found' });
         }
 
-        // Update field blog
         blog.publisher = publisher;
         blog.title = title;
         blog.description = description;
         blog.date = date;
+        blog.story = story;
 
-        // Jika ada file image baru, update path image
         if (image) {
             blog.image = image.path;
         }
 
-        // Simpan perubahan ke database
         const updatedBlog = await blog.save();
 
-        // Kirim respon sukses
         res.status(200).json(updatedBlog);
     } catch (error) {
-        // Tangani error
         console.error(error);
         res.status(500).json({ message: 'Server error. Could not update blog.' });
     }
 };
 
-export { createBlog, getBlogs, updateBlog };
+const getBlogByTitle = async (req, res) => {
+    try {
+        const { title } = req.params;
+        const blog = await BlogData.findOne({ title: new RegExp(title, 'i') });
+
+        if (!blog) {
+            return res.status(404).json({ message: 'Blog not found' });
+        }
+
+        res.status(200).json(blog);
+    } catch (error) {
+        res.status(500).json({ message: 'Server Error', error: error.message });
+    }
+};
+
+const deleteBlog = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const blog = await BlogData.findByIdAndRemove(id);
+
+        if (!blog) return res.status(404).send('Blog tidak ditemukan');
+
+        const imagePath = blog.image;
+
+        if (fs.existsSync(imagePath)) {
+            fs.unlinkSync(imagePath);
+        }
+
+        res.json({ message: 'Blog berhasil dihapus' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+export { createBlog, getBlogs, updateBlog, getBlogByTitle, deleteBlog };

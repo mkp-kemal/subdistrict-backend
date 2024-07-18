@@ -16,6 +16,10 @@ const blogSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  story: {
+    type: String,
+    trim: true
+  },
   date: {
     type: String,
     required: true
