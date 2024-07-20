@@ -5,7 +5,6 @@ import connectDB from './db/connectDB.js';
 import userRoutes from './routes/userRoutes.js';
 import multer from 'multer';
 import path from 'path';
-import { rootUrl } from '../subdistrict/src/helpers/helper.jsx';
 
 // Konfigurasi .env
 dotenv.config();
@@ -18,7 +17,7 @@ const app = express();
 const PORT = process.env.PORT;
 
 app.use(cors({
-  origin: rootUrl,
+  origin: 'http://localhost:5173',
   methods: 'GET,POST,PUT,DELETE,OPTIONS',
   allowedHeaders: 'Content-Type,Authorization'
 }));
