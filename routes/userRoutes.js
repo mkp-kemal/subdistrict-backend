@@ -18,6 +18,6 @@ router.delete('/blog/:id', deleteBlog)
 //credentials
 router.post('/login', login)
 router.post('/logout', protectRoute, logout)
-router.get('/user', protectRoute, user)
+router.get('/user', user)
 
 export default router

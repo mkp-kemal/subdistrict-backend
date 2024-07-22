@@ -44,7 +44,7 @@ export const logout = async (req, res) => {
 export const user = async (req, res) => {
     const userId = req.userId;
     try {
-        const user = await User.findById(userId, 'email username');
+        const user = await User.findOne({ _id: userId, token: { $ne: '-' } }, 'email username');
         if (!user) return res.status(404).json({ message: 'User not found' });
         res.json(user);
     } catch (err) {
