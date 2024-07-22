@@ -44,7 +44,7 @@ const getBlogs = async (req, res) => {
 
 const updateBlog = async (req, res) => {
     const { id } = req.params;
-    const { publisher, title, description, date, story } = req.body;
+    const { title, description, date, story } = req.body;
     const image = req.file;
 
     // Validasi input
@@ -58,7 +58,6 @@ const updateBlog = async (req, res) => {
             return res.status(404).json({ message: 'Blog not found' });
         }
 
-        blog.publisher = publisher;
         blog.title = title;
         blog.description = description;
         blog.date = date;
