@@ -48,7 +48,7 @@ const updateBlog = async (req, res) => {
     const image = req.file;
 
     // Validasi input
-    if (!publisher || !title || !description || !date || !story) {
+    if (!title || !description || !date || !story) {
         return res.status(400).json({ message: 'All fields except image are required' });
     }
 
