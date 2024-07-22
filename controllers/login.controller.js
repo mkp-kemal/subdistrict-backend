@@ -40,3 +40,15 @@ export const logout = async (req, res) => {
         console.error('Error logging out:', err.message);
     }
 };
+
+export const user = async (req, res) => {
+    const userId = req.userId;
+    try {
+        const user = await User.findById(userId, 'email username');
+        if (!user) return res.status(404).json({ message: 'User not found' });
+        res.json(user);
+    } catch (err) {
+        res.status(500).json({ message: 'Error getting user' });
+        console.error('Error getting user:', err.message);
+    }
+};
