@@ -52,3 +52,13 @@ export const user = async (req, res) => {
         console.error('Error getting user:', err.message);
     }
 };
+
+export const users = async (req, res) => {
+    try {
+        const users = await User.find().sort({ createdAt: -1 });
+
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ message: 'Gagal mendapatkan data users', error: error.message });
+    }
+};
