@@ -6,7 +6,7 @@ const createBlog = async (req, res) => {
     const { publisher, title, description, date, gotongRoyong, masyarakat, wisata } = req.body;
 
     if (!req.file) {
-        return res.status(400).json({ message: 'File harus di-upload' });
+        return res.status(400).json({ message: 'Gambar harus di-upload' });
     }
 
     try {
