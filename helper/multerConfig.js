@@ -62,13 +62,17 @@ const getImages = async (req, res) => {
     try {
         const [files] = await bucket.getFiles();
 
-        const imageUrls = files.map(file => `https://storage.googleapis.com/${bucketName}/${file.name}`);
+        const imageDetails = files.map(file => ({
+            name: file.name,
+            url: `https://storage.googleapis.com/${bucketName}/${file.name}`
+        }));
 
-        return res.send(imageUrls)
+        return res.json(imageDetails);
     } catch (error) {
         return res.status(500).json({ message: 'Gagal mendapatkan gambar', error: error.message });
     }
 };
+
 
 const deleteImage = async (req, res) => {
     const { fileName } = req.body;

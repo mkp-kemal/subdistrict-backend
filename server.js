@@ -16,9 +16,19 @@ const app = express();
 
 const PORT = process.env.PORT;
 
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://nagrakciater.vercel.app'
+];
+
 app.use(cors({
-  origin: 'https://nagrakciater.vercel.app',
-  methods: 'GET,POST,PUT,DELETE,OPTIONS',
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }, methods: 'GET,POST,PUT,DELETE,OPTIONS',
   allowedHeaders: 'Content-Type,Authorization'
 }));
 
