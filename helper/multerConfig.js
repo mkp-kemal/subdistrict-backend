@@ -16,7 +16,6 @@ const storage = new Storage({
 const bucketName = "image_blogs_subdistrict";
 const bucket = storage.bucket(bucketName);
 
-// Konfigurasi multer untuk menyimpan file di memori
 const multerStorage = multer.memoryStorage();
 
 const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
@@ -59,6 +58,21 @@ async function uploadFile(file) {
     });
 }
 
+const getImages = async (req, res) => {
+    try {
+        console.log('Getting images...');
+        const [files] = await bucket.getFiles();
+        console.log(files);
+
+        const imageUrls = files.map(file => `https://storage.googleapis.com/${bucketName}/${file.name}`);
+
+        // res.status(200).json(imageUrls);
+        return res.send(imageUrls)
+    } catch (error) {
+        return res.status(500).json({ message: 'Gagal mendapatkan gambar', error: error.message });
+    }
+};
 
 
-export { upload, uploadFile };
+
+export { upload, uploadFile, getImages };
