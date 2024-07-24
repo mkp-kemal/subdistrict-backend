@@ -60,19 +60,30 @@ async function uploadFile(file) {
 
 const getImages = async (req, res) => {
     try {
-        console.log('Getting images...');
         const [files] = await bucket.getFiles();
-        console.log(files);
 
         const imageUrls = files.map(file => `https://storage.googleapis.com/${bucketName}/${file.name}`);
 
-        // res.status(200).json(imageUrls);
         return res.send(imageUrls)
     } catch (error) {
         return res.status(500).json({ message: 'Gagal mendapatkan gambar', error: error.message });
     }
 };
 
+const deleteImage = async (req, res) => {
+    const { fileName } = req.body;
+    if (!fileName) return res.status(400).json({ message: 'File name is required' });
+
+    try {
+        const file = bucket.file(fileName);
+        await file.delete();
+        res.status(200).json({ message: 'Image deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting image:', error);
+        res.status(500).json({ message: 'Error deleting image', error: error.message });
+    }
+};
 
 
-export { upload, uploadFile, getImages };
+
+export { upload, uploadFile, getImages, deleteImage };
