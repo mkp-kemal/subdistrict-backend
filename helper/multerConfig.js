@@ -13,7 +13,7 @@ const storage = new Storage({
     },
 });
 
-const bucketName = "blogs_subdistrict";
+const bucketName = "image_blogs_subdistrict";
 const bucket = storage.bucket(bucketName);
 
 const multerStorage = multer.memoryStorage();

@@ -103,7 +103,7 @@ const deleteBlog = async (req, res) => {
         const imagePath = blog.image;
 
         if (imagePath) {
-            const bucketName = "blogs_subdistrict";
+            const bucketName = "image_blogs_subdistrict";
             const storage = new Storage({
                 credentials: {
                     type: "service_account",
