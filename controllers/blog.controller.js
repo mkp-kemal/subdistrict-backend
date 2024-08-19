@@ -107,11 +107,11 @@ const deleteBlog = async (req, res) => {
             const storage = new Storage({
                 credentials: {
                     type: "service_account",
-                    project_id: "mkp-project-01",
+                    project_id: "fifth-sunup-433003-f1",
                     private_key_id: process.env.PRIVATE_KEY_ID,
                     private_key: process.env.PRIVATE_KEY.replace(/\\n/g, '\n'),
-                    client_email: "blogs-subdistrict@mkp-project-01.iam.gserviceaccount.com",
-                    client_id: "116541783390188450970",
+                    client_email: "nagrak@fifth-sunup-433003-f1.iam.gserviceaccount.com",
+                    client_id: "102360794015599937986",
                 },
             });
             const bucket = storage.bucket(bucketName);
