@@ -109,7 +109,7 @@ const deleteBlog = async (req, res) => {
                     type: "service_account",
                     project_id: "fifth-sunup-433003-f1",
                     private_key_id: process.env.PRIVATE_KEY_ID,
-                    private_key: process.env.PRIVATE_KEY,
+                    private_key: process.env.PRIVATE_KEY.replace(/\\n/g, '\n'),
                     client_email: "nagrak@fifth-sunup-433003-f1.iam.gserviceaccount.com",
                     client_id: "102360794015599937986",
                 },
