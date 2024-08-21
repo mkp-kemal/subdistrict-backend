@@ -20,12 +20,12 @@ router.post('/login', login)
 router.post('/logout', protectRoute, logout)
 router.get('/user', protectRoute, user)
 router.get('/users', protectRoute, users)
-router.get('/images', getImages)
-router.delete('/images', deleteImage);
+router.get('/images', protectRoute, getImages)
+router.delete('/images', protectRoute, deleteImage);
 router.post('/post', protectRoute, upload.single('image'), createBlog);
-router.post('/post/agenda', createAgenda);
+router.post('/post/agenda', protectRoute, createAgenda);
 router.put('/blog/:id', protectRoute, upload.single('image'), updateBlog)
 router.delete('/blog/:id', protectRoute, deleteBlog)
-router.delete('/agenda/:id', deleteAgenda)
+router.delete('/agenda/:id', protectRoute, deleteAgenda)
 
 export default router
