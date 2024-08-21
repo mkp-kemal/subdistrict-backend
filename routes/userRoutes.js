@@ -21,7 +21,7 @@ router.post('/logout', protectRoute, logout)
 router.get('/user', protectRoute, user)
 router.get('/users', protectRoute, users)
 router.get('/images', getImages)
-router.delete('/images', protectRoute, deleteImage);
+router.delete('/images', deleteImage);
 router.post('/post', protectRoute, upload.single('image'), createBlog);
 router.post('/post/agenda', protectRoute, createAgenda);
 router.put('/blog/:id', protectRoute, upload.single('image'), updateBlog)
